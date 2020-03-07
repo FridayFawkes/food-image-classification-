@@ -113,7 +113,7 @@ model.fit_generator(train_generator,
                     callbacks = [earlystopper, lrate, checkpoint, hist])
 
 #evaluate the model
-scores = model.evaluate_generator(test_generator, val_samples=val_samples) 
+scores = model.evaluate_generator(test_generator) 
 print("Accuracy = ", scores[1])
 
 #save model
@@ -155,14 +155,14 @@ model.save(os.path.join(savePath,'cnnModelDEp80.h5')) #save complied model
 # not necessary the best at the end of training 
 from tensorflow.keras.models import load_model
 myModel = load_model(os.path.join(savePath,'cnnModelDEp80.h5'))                                  
-scores = myModel.evaluate_generator(test_generator,val_samples)
+scores = myModel.evaluate_generator(test_generator)
 print("Accuracy = ", scores[1])
 
 ########################
 # Check-pointed model  #
 #######################
 model = Sequential()
-model.add(Convolution2D(32, 7, 7, input_shape=(3, 128, 128)))
+model.add(Convolution2D(filters=32, kernel_size=(7, 7), input_shape=(128, 128, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Convolution2D(64, 5, 5))
@@ -187,7 +187,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer=sgd,
               metrics=['accuracy'])
 model.load_weights(filepath) #load saved weights
-scores = model.evaluate_generator(test_generator,val_samples)
+scores = model.evaluate_generator(test_generator)
 print("Accuracy = ", scores[1])
 
 
@@ -201,7 +201,7 @@ test_generator = test_datagen.flow_from_directory(imgDir,
                                                   class_mode='categorical')
 #val_samples = 1168
 val_samples = 4654
-predict = model.predict_generator(test_generator,val_samples)
+predict = model.predict_generator(test_generator)
 
 yTrue = test_generator.classes
 yTrueIdx = test_generator.class_indices
