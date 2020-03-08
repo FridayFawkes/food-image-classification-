@@ -83,7 +83,36 @@ sudo cp -v rar unrar /usr/local/bin
 ```
 sh setup.sh
 ```
+In order to resize the dataset you can run the `resizeDatasets.py` script.
+This script copies the Imagens in `./Data` directory tree and resizes them to `(64x64x3)` by default.
 
+***
+# About the Repository
+- `./unused`: original code, other scripts and images
+- `setup.py`: unzip the datasets into correct folders
+- `resizeDatasets.py`: create a copy of the dataset with (64x64) images
+- `trainNetwork.py`: train the network
+- `loadNetwork.py`: load and use trained networks
+- `./savedModels`: contains some trained networks:
+  - 1VGGModel-128x128-400epochs-68acc.h5 ()
+  - 1VGGModel-64x64-400epochs-73acc.h5
+
+Both of then where trained using the same code in `trainNetwork.py`, just with the corresponding input value for the image resolution (128, 128) or (64, 64) for 400 epochs.
+
+The network structure is composed by:
+
+```python
+model = Sequential()
+model.add(Convolution2D(filters=32, kernel_size=(3, 3), input_shape=(64, 64, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(10))
+model.add(Activation('softmax'))
+```
+
+
+***
 
 # food-image-classification-
 ten-class food images and classification based on cnn in python

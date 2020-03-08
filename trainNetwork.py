@@ -41,7 +41,7 @@ config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 # model.add(Activation('softmax'))
 
 model = Sequential()
-model.add(Convolution2D(filters=32, kernel_size=(3, 3), input_shape=(128, 128, 3)))
+model.add(Convolution2D(filters=32, kernel_size=(3, 3), input_shape=(64, 64, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
@@ -95,15 +95,15 @@ train_datagen = ImageDataGenerator(
                                    zoom_range=0.2,
                                    horizontal_flip=True)
 
-trainDir = './Data/Train'
+trainDir = './resizedData/Train'
 train_generator = train_datagen.flow_from_directory(trainDir,  
-                                                    target_size=(128,128),
+                                                    target_size=(64,64), #ORIGINAL (128, 128)
                                                     batch_size=32,
                                                     class_mode='categorical')
 test_datagen = ImageDataGenerator(rescale=1./255)  
-testDir = './Data/Test'
+testDir = './resizedData/Test'
 test_generator = test_datagen.flow_from_directory(testDir,
-                                                  target_size=(128,128),
+                                                  target_size=(64,64), #ORIGINAL (128, 128)
                                                   batch_size=32,
                                                   shuffle=False,
                                                   class_mode='categorical')
@@ -142,7 +142,7 @@ model.save(os.path.join(savePath,'cnnModelDEp80.h5')) #save complied model
 import matplotlib.pyplot as plt
 print(hist.history.keys())
 #accuracy
-plt.plot(hist.history['accuraccy'])
+plt.plot(hist.history['accuracy'])
 plt.plot(hist.history['val_acc'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
