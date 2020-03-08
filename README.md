@@ -94,8 +94,8 @@ This script copies the Imagens in `./Data` directory tree and resizes them to `(
 - `trainNetwork.py`: train the network
 - `loadNetwork.py`: load and use trained networks
 - `./savedModels`: contains some trained networks:
-  - 1VGGModel-128x128-400epochs-68acc.h5 ()
-  - 1VGGModel-64x64-400epochs-73acc.h5
+  - 1VGGModel-128x128-400epochs-68acc.h5 (68% accuracy)
+  - 1VGGModel-64x64-400epochs-73acc.h5 (73% accuracy)
 
 Both of then where trained using the same code in `trainNetwork.py`, just with the corresponding input value for the image resolution (128, 128) or (64, 64) for 400 epochs.
 
